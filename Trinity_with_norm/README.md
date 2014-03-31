@@ -64,3 +64,18 @@ Many hours to a few days.  Without digital normalization (which you'd do by simp
 ##What is the relevant output?
 
 The assembled contigs will be in a file called trinity_output/Trinity.fasta
+
+#Script for UCI cluster
+
+Assuming the following:
+
+<ol>
+<li>You have a directory set up with all your paired-end FASTQ files from your RNA-seq experiment and nothing else.</li>
+<li>The fastq files have names like sample-tissue-READ1.fastq.gz and sample-tissue-READ2.fastq.gz</li>
+</ol>
+
+The following command will run Trinity with digital read normalization on your samples on the UCI [HPC](http://hpc.oit.uci.edu/):
+
+	find . |grep READ |  sort | xargs qsub -q bio -pe openmp 64 -N SPECIESNAME trinity.sh `pwd`
+
+The trinit.sh script is found in this repository
