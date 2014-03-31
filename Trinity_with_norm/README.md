@@ -30,13 +30,12 @@ On a Linux machine:
 
 To iterate over all the "left" reads and make a single FASTA file:
 
+```shell
    for i in *.READ1*.gz
-   
    do
-
-      zcat $i | awk 'BEGIN{P=1}{if(P==1||P==2){gsub(/^[@]/,">");print}; if(P==4)P=0; P++}'|perl -p -i -e 's/\s1:.+$/\/1/\go' >> left.fa
-
-      done
+   zcat $i | awk 'BEGIN{P=1}{if(P==1||P==2){gsub(/^[@]/,">");print}; if(P==4)P=0; P++}'|perl -p -i -e 's/\s1:.+$/\/1/\go' >> left.fa
+   done
+```
 
 Repeat the above for *.READ2*.gz and redirect the ouput into right.fa.
 
