@@ -56,3 +56,11 @@ The output of the digital normalization makes funny file names, so I just grep f
 The final step is to run Trinity:
 
     Trinity.pl --seqType fa --bflyHeapSpaceInit 1G --bflyHeapSpaceMax 8G --JM 7G --left $LEFTFILE --right $RIGHTFILE --output trinity_output --min_contig_length 300 --CPU $CORES --inchworm_cpu $CORES --bflyCPU $CORES
+
+##How long will this take
+
+Many hours to a few days.  Without digital normalization (which you'd do by simply concatenating all FASTQ files and running Trinity on left.fa and right.fa), it could take weeks.
+
+##What is the relevant output?
+
+The assembled contigs will be in a file called trinity_output/Trinity.fasta
