@@ -37,7 +37,7 @@ To iterate over all the "left" reads and make a single FASTA file:
    done
 ```
 
-Repeat the above for *.READ2*.gz and redirect the ouput into right.fa.
+Repeat the above for \*.READ2\*.gz and redirect the ouput into right.fa.
 
 ##Running Trinity
 
