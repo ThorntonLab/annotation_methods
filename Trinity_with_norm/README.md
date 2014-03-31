@@ -30,10 +30,10 @@ On a Linux machine:
 
 To iterate over all the "left" reads and make a single FASTA file:
 
->for i in *.READ1*.gz
->do
->zcat $i | awk 'BEGIN{P=1}{if(P==1||P==2){gsub(/^[@]/,">");print}; if(P==4)P=0; P++}'|perl -p -i -e 's/\s1:.+$/\/1/\go' >> left.fa
->done
+   for i in *.READ1*.gz
+   do
+   zcat $i | awk 'BEGIN{P=1}{if(P==1||P==2){gsub(/^[@]/,">");print}; if(P==4)P=0; P++}'|perl -p -i -e 's/\s1:.+$/\/1/\go' >> left.fa
+   done
 
 Repeat the above for *.READ2*.gz and redirect the ouput into right.fa.
 
@@ -42,13 +42,13 @@ Repeat the above for *.READ2*.gz and redirect the ouput into right.fa.
 NOTE: for all of the commands below, $CORES represents how many CPU you want to use.  I am assuming that you have A LOT of RAM available to you.  All of our runs are on 512GB machines.
 
 Step 1 is to run the digital normalization:
->perl -I $HOME/lib \`which normalize_by_kmer_coverage.pl`` --seqType fa --JM 100G --max_cov 30 --left left.fa --right right.fa --pairs_together --PARALLEL_STATS --JELLY_CPU $CORES
+     perl -I $HOME/lib \`which normalize_by_kmer_coverage.pl`` --seqType fa --JM 100G --max_cov 30 --left left.fa --right right.fa --pairs_together --PARALLEL_STATS --JELLY_CPU $CORES
 
 The output of the digital normalization makes funny file names, so I just grep for what I need and store the result as two variables:
->LEFTFILE=\`ls | grep left.fa | grep normalized\`
+    LEFTFILE=\`ls | grep left.fa | grep normalized\`
 
->RIGHTFILE=\`ls | grep right.fa | grep normalized\`
+    RIGHTFILE=\`ls | grep right.fa | grep normalized\`
 
 The final step is to run Trinity:
 
->Trinity.pl --seqType fa --bflyHeapSpaceInit 1G --bflyHeapSpaceMax 8G --JM 7G --left $LEFTFILE --right $RIGHTFILE --output trinity_output --min_contig_length 300 --CPU $CORES --inchworm_cpu $CORES --bflyCPU $CORES
+    Trinity.pl --seqType fa --bflyHeapSpaceInit 1G --bflyHeapSpaceMax 8G --JM 7G --left $LEFTFILE --right $RIGHTFILE --output trinity_output --min_contig_length 300 --CPU $CORES --inchworm_cpu $CORES --bflyCPU $CORES
