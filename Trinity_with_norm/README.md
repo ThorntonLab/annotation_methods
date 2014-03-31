@@ -3,12 +3,11 @@
 Computational workflows used in the Thornton lab for this task.
 
 ##Software versions used
-[Trinity](http://trinityrnaseq.sourceforge.net/) 20130216
 <ol>
 <li>perl 5.16.2</li>
 <li>[Trinity](http://trinityrnaseq.sourceforge.net/) 20130216</li>
-<li>bowtie 0.12.8</li>
-<li>samtools 0.1.18</li>
+<li>[bowtie](http://bowtie-bio.sourceforge.net/index.shtml) 0.12.8</li>
+<li>[samtools](https://github.com/samtools) 0.1.18</li>
 <li>java 1.6</li>
 </ol>
 
