@@ -78,4 +78,4 @@ The following command will run Trinity with digital read normalization on your s
 
 	find . |grep READ |  sort | xargs qsub -q bio -pe openmp 64 -N SPECIESNAME trinity.sh `pwd`
 
-The trinit.sh script is found in this repository
+The trinity.sh script is found in this repository
