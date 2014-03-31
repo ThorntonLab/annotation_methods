@@ -42,9 +42,11 @@ Repeat the above for *.READ2*.gz and redirect the ouput into right.fa.
 NOTE: for all of the commands below, $CORES represents how many CPU you want to use.  I am assuming that you have A LOT of RAM available to you.  All of our runs are on 512GB machines.
 
 Step 1 is to run the digital normalization:
+
      perl -I $HOME/lib \`which normalize_by_kmer_coverage.pl`` --seqType fa --JM 100G --max_cov 30 --left left.fa --right right.fa --pairs_together --PARALLEL_STATS --JELLY_CPU $CORES
 
 The output of the digital normalization makes funny file names, so I just grep for what I need and store the result as two variables:
+
     LEFTFILE=\`ls | grep left.fa | grep normalized\`
 
     RIGHTFILE=\`ls | grep right.fa | grep normalized\`
