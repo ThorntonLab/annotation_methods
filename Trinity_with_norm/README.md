@@ -3,7 +3,7 @@
 Computational workflows used in the Thornton lab for this task.
 
 ##Software versions used
-
+[Trinity](http://trinityrnaseq.sourceforge.net/) 20130216
 <ol>
 <li>perl 5.16.2</li>
 <li>[Trinity](http://trinityrnaseq.sourceforge.net/) 20130216</li>
@@ -23,7 +23,7 @@ Computational workflows used in the Thornton lab for this task.
 
 (Note that Trinity is kind of insane and requires that the files be uncompressed. In a saner world, we'd also pipe the following through gzip...)
 
-zcat file.fastq.gz | awk 'BEGIN{P=1}{if(P==1||P==2){gsub(/^[@]/,">");print}; if(P==4)P=0; P++}'|perl -p -i -e 's/\s1:.+$/\/1/go' > file.fasta
+>zcat file.fastq.gz | awk 'BEGIN{P=1}{if(P==1||P==2){gsub(/^[@]/,">");print}; if(P==4)P=0; P++}'|perl -p -i -e 's/\s1:.+$/\/1/go' > file.fasta
 
 ###Catenating multiple FASTQ files into one big FASTA file:
 
@@ -31,11 +31,10 @@ On a Linux machine:
 
 To iterate over all the "left" reads and make a single FASTA file:
 
-for i in *.READ1*.gz
-do
-zcat $i | awk 'BEGIN{P=1}{if(P==1||P==2){gsub(/^[@]/,">");print}; if(P==4)P=0; P++}'|perl -p -i -e 's/\s1:.+$/\/1/\
-go' >> left.fa
-done
+>for i in *.READ1*.gz
+>do
+>zcat $i | awk 'BEGIN{P=1}{if(P==1||P==2){gsub(/^[@]/,">");print}; if(P==4)P=0; P++}'|perl -p -i -e 's/\s1:.+$/\/1/\go' >> left.fa
+>done
 
 Repeat the above for *.READ2*.gz and redirect the ouput into right.fa.
 
