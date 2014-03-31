@@ -19,8 +19,23 @@ Computational workflows used in the Thornton lab for this task.
 <li>All of the software from the previous section available in your user's $PATH</li>
 </ol>
 
-#How to turn FASTQ files into FASTA files using the shell
+###How to turn FASTQ files into FASTA files using the shell
 
 (Note that Trinity is kind of insane and requires that the files be uncompressed. In a saner world, we'd also pipe the following through gzip...)
 
 zcat file.fastq.gz | awk 'BEGIN{P=1}{if(P==1||P==2){gsub(/^[@]/,">");print}; if(P==4)P=0; P++}'|perl -p -i -e 's/\s1:.+$/\/1/go' > file.fasta
+
+###Catenating multiple FASTQ files into one big FASTA file:
+
+On a Linux machine:
+
+To iterate over all the "left" reads and make a single FASTA file:
+
+for i in *.READ1*.gz
+do
+zcat $i | awk 'BEGIN{P=1}{if(P==1||P==2){gsub(/^[@]/,">");print}; if(P==4)P=0; P++}'|perl -p -i -e 's/\s1:.+$/\/1/\
+go' >> left.fa
+done
+
+Repeat the above for *.READ2*.gz and redirect the ouput into right.fa.
+
