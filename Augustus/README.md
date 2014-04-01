@@ -66,11 +66,14 @@ blat -minIdentity=92 genome.fa cdna.fa cdna.psl
 blat2hints.pl --in=cdna.psl --out=hints.E.gff
 #Run predictions on reference using fly models
 #Note:you need to give full path to extrinsic.ME.cfg file!!!
-augustus --species=fly --hintsfile=hints.E.gff --extrinsicCfgFile=extrinsic.ME.cfg genome.fa --uniqueGeneID=true --gff3=on
+augustus --species=fly --hintsfile=hints.E.gff --extrinsicCfgFile=extrinsic.ME.cfg genome.fa --uniqueGeneID=true --gff3=on > out.gff3
 ```
 
+The above gets the job done, but takes a while.  It results in one big gff3 file.
+
 ##How KRT does it on UCI HPC
-This is our script, largely following instructions from Augustus' website:
+
+This is our script:
 
 ```
 #!sh
@@ -100,4 +103,4 @@ The arguments are
 
 We split up our reference genomes into the major arms + 1 FASTA file for "the rest".  The file names are chrom\*.fasta and therest.fasta.  This lets the blatting be a little faster and allows me to user OGE/SGE to use multiple cores for annotation.  The code for splitting is in the src subdir.  Any chromo greater than 1Mb gets its one file. The rest are "therest.fasta".
 
-This would all work fine, albeit slowly, on a single core.
+This results in 1 gff3 file for each reference sequence used.  They are then simply concantenated to make the "master" GFF.
