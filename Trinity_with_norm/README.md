@@ -11,6 +11,26 @@ Computational workflows used in the Thornton lab for this task.
 <li>java 1.6</li>
 </ol>
 
+###Notes:
+
+Your perl installation must have [PerlIO::gzip](http://search.cpan.org/~nwclark/PerlIO-gzip-0.17/gzip.pm) available.
+
+To install this for your user:
+
+```shell
+wget http://search.cpan.org/CPAN/authors/id/N/NW/NWCLARK/PerlIO-gzip-0.18.tar.gz
+tar xzf PerlIO-gzip-0.18.tar.gz
+cd PerlIO-gzip-0.18
+perl Makefile.PL PREFIX=~/lib LIB=~/lib
+make 
+make install
+```
+
+Now that the module is installed locally, you will likely need to say something like the following to get scripts using PerlIO::gzip working:
+
+```shell
+perl -I $HOME/lib script.pl
+```
 ##Reagents needed
 
 <ol>
