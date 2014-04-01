@@ -54,6 +54,22 @@ And x86\_64 also appears to work there for MACHTYPE.  (Don't do this stuff on Ma
 
 #Running Augustus
 
+##Simplest situation
+
+This is cribbed directly from the Augsustus README with additional comments and some changes by KRT:
+
+```
+#step 1, align cdna.fa  to genome.fa (reference) and output to cdna.psl
+#For our purposes, replace cdna.fa with the output of Trinity (Trinity.fasta)
+blat -minIdentity=92 genome.fa cdna.fa cdna.psl
+#convert the blat output to a new format in file hints.E.gff
+blat2hints.pl --in=cdna.psl --out=hints.E.gff
+#Run predictions on reference using fly models
+#Note:you need to give full path to extrinsic.ME.cfg file!!!
+augustus --species=fly --hintsfile=hints.E.gff --extrinsicCfgFile=extrinsic.ME.cfg genome.fa --uniqueGeneID=true --gff3=on
+```
+
+##How KRT does it on UCI HPC
 This is our script, largely following instructions from Augustus' website:
 
 ```
@@ -82,6 +98,6 @@ The arguments are
 <li>path to folder containing split up reference genome</li>
 </ol>
 
-We split up our reference genomes into the major arms + 1 FASTA file for "the rest".  The file names are chrom\*.fasta and therest.fasta.  This lets the blatting be a little faster and allows me to user OGE/SGE to use multiple cores for annotation.
+We split up our reference genomes into the major arms + 1 FASTA file for "the rest".  The file names are chrom\*.fasta and therest.fasta.  This lets the blatting be a little faster and allows me to user OGE/SGE to use multiple cores for annotation.  The code for splitting is in the src subdir.  Any chromo greater than 1Mb gets its one file. The rest are "therest.fasta".
 
 This would all work fine, albeit slowly, on a single core.
