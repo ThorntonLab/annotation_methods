@@ -1,0 +1,7 @@
+#Intro
+
+Taking Trinity's output and running the Augustus pipeline
+
+#Reagents
+
+[Augustus](http://augustus.gobics.de/).  We use version 2.5.5.
