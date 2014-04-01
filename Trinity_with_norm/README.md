@@ -26,6 +26,8 @@ make
 make install
 ```
 
+Further instructions on installation of Perl modules may be found [here](http://www.perlmonks.org/index.pl?node_id=128077).
+
 Now that the module is installed locally, you will likely need to say something like the following to get scripts using PerlIO::gzip working:
 
 ```shell
