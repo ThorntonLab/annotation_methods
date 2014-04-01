@@ -1,4 +1,4 @@
-#Intro
+1#Intro
 
 Taking Trinity's output and running the Augustus pipeline
 
@@ -9,6 +9,48 @@ Taking Trinity's output and running the Augustus pipeline
 [blat](http://hgwdev.cse.ucsc.edu/~kent/src/).  This can be a pain to install...
 
 The "Trinity.fasta" file that comes out of Trinity.  See [here](https://github.com/ThorntonLab/annotation_methods) for how we do things.
+
+##Compiling the tools (simple instructions)
+
+###Augustus
+```
+wget http://bioinf.uni-greifswald.de/augustus/binaries/augustus.2.5.5.tar.gz
+tar xzf augustus.2.5.5.tar.gz 
+cd augustus.2.5.5/
+```
+
+The output of compiling is a bunch of executables in the "bin" directory.  The simplest thing is to copy/move them somewhere in your user's $PATH.
+
+###blat
+```
+wget http://hgwdev.cse.ucsc.edu/~kent/src/blatSrc35.zip
+unzip blatSrc35.zip
+cd blatSrc
+mkdir ~/bin
+mkdir ~/bin/x86_64
+MACHTYPE=x86_64 make
+```
+
+The output will be several binaries in ~/bin/x86_64.
+
+__NOTE:__  the above compiling instructions are system-specific.  What one enters for MACHTYPE varies from system to system, and it is frustrating.  Usually, the "uname -a" command can give you some hints:
+
+```
+kevin@devlaeminck:~/tmp/blatSrc$ uname -a
+Linux devlaeminck 3.2.0-58-generic #88-Ubuntu SMP Tue Dec 3 17:37:58 UTC 2013 x86_64 x86_64 x86_64 GNU/Linux
+```
+
+You see the x86\_64 string repeated several times.  That is the MACHTYPE.
+
+On my iMac:
+
+```
+uname -a
+Darwin thornton01.bio.uci.edu 13.1.0 Darwin Kernel Version 13.1.0: Thu Jan 16 19:40:37 PST 2014; root:xnu-2422.90.20~2/RELEASE_X86_64 x86_64
+```
+
+And x86\_64 also appears to work there for MACHTYPE.  (Don't do this stuff on Macs--Linux only, please!)
+
 
 #Running Augustus
 
